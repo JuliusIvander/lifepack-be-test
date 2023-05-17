@@ -27,9 +27,23 @@ route.put("/medicine", async (req: Request, res: Response, next: Function) => {
   }
 });
 
-route.get("/summary", async (req: Request, res: Response, next: Function) => {
+route.get("/:id/summary", async (req: Request, res: Response, next: Function) => {
   try {
     await prescriptionController.getSummary(req, res);
+  } catch (error) {
+    next(error);
+  }
+});
+
+route.post("/:id/checkout", async (req: Request, res: Response, next: Function) => {
+  try {
+  } catch (error) {
+    next(error);
+  }
+});
+
+route.post("/:id/cancel", async (req: Request, res: Response, next: Function) => {
+  try {
   } catch (error) {
     next(error);
   }

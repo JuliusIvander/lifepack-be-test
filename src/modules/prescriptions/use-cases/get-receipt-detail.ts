@@ -11,10 +11,11 @@ type dependencies = {
 
 export const MakeGetReceiptDetail =
   ({ getPrescriptionById, getPrice }: dependencies) =>
-  async (receiptId: number) => {
+  async (receiptId: number, userId: number) => {
     // Get data
     const data = await getPrescriptionById(receiptId);
     if (!data) throw new Error("Receipt not found!");
+    if (data.PatientId != userId) throw new Error("Unauthorized!");
 
     return {
       receiptId: data.PrescriptionId,
