@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model PharmacyProduct {
+  ProductId            Int                   @id @default(autoincrement())
+  Name                 String                @db.VarChar(255)
+  SKU                  String                @unique @db.VarChar(255)
+  Price                Int
+  PriceConfigurationId Int
+  IsTaxIncluded        Boolean
+  Stock                Int
+  CreatedAt            DateTime              @default(now())
+  UpdatedAt            DateTime              @default(now())
+  PrescriptionDetails  PrescriptionDetails[]
+}
+
+model Role {
+  RoleId    Int      @id @default(autoincrement())
+  Name      String   @db.VarChar(32)
+  User      User[]
+  CreatedAt DateTime @default(now())
+  UpdatedAt DateTime @default(now())
+}
+
+model User {
+  UserId    Int            @id @default(autoincrement())
+  Name      String         @db.VarChar(255)
+  RoleId    Int
+  Role      Role           @relation(fields: [RoleId], references: [RoleId])
+  CreatedAt DateTime       @default(now())
+  UpdatedAt DateTime       @default(now())
+  Doctor    Prescription[] @relation("Doctor")
+  Patient   Prescription[] @relation("Patient")
+}
+
+model Clinic {
+  ClinicId     Int            @id @default(autoincrement())
+  Name         String         @db.VarChar(255)
+  Address      String         @db.VarChar(255)
+  CreatedAt    DateTime       @default(now())
+  UpdatedAt    DateTime       @default(now())
+  Prescription Prescription[]
+}
+
+model Prescription {
+  PrescriptionId      Int                   @id @default(autoincrement())
+  PatientId           Int
+  Patient             User                  @relation("Patient", fields: [PatientId], references: [UserId])
+  DoctorId            Int
+  Doctor              User                  @relation("Doctor", fields: [DoctorId], references: [UserId])
+  ClinicId            Int
+  Clinic              Clinic                @relation(fields: [ClinicId], references: [ClinicId])
+  Status              String                @default("Created") @db.VarChar(32)
+  TotalPrice          Int                   @default(0)
+  CreatedAt           DateTime              @default(now())
+  UpdatedAt           DateTime              @default(now())
+  PrescriptionDetails PrescriptionDetails[]
+}
+
+model PrescriptionDetails {
+  PrescriptionDetailsId Int             @id @default(autoincrement())
+  PrescriptionId        Int
+  Prescription          Prescription    @relation(fields: [PrescriptionId], references: [PrescriptionId])
+  ProductId             Int
+  Product               PharmacyProduct @relation(fields: [ProductId], references: [ProductId])
+  Quantity              Int
+  Price                 Int
+  CreatedAt             DateTime        @default(now())
+  UpdatedAt             DateTime        @default(now())
+}
