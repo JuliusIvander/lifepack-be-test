@@ -15,7 +15,7 @@ export const MakeGetReceiptDetail =
     // Get data
     const data = await getPrescriptionById(receiptId);
     if (!data) throw new Error("Receipt not found!");
-    if (data.PatientId != userId) throw new Error("Unauthorized!");
+    if (data.PatientId !== userId) throw new Error("Unauthorized!");
 
     return {
       receiptId: data.PrescriptionId,

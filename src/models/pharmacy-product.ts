@@ -1,6 +1,9 @@
 import { Prisma, db } from "../utils/prisma";
 import { GetProductInputs } from "../utils/types/inputs";
-import { PharmacyProduct } from "../utils/types/models";
+import {
+  PharmacyProduct,
+  PharmacyProductUpdateData,
+} from "../utils/types/models";
 
 async function getAll(params: GetProductInputs): Promise<PharmacyProduct[]> {
   const payload: Prisma.PharmacyProductWhereInput = {};
@@ -34,4 +37,20 @@ async function getById(id: number): Promise<PharmacyProduct | null> {
   return result;
 }
 
-export default { getAll, getById };
+async function updateById(
+  id: number,
+  data: PharmacyProductUpdateData
+): Promise<PharmacyProduct> {
+  const result = await db.pharmacyProduct.update({
+    where: {
+      ProductId: id,
+    },
+    data: {
+      ...data,
+      UpdatedAt: new Date(),
+    },
+  });
+  return result;
+}
+
+export default { getAll, getById, updateById };

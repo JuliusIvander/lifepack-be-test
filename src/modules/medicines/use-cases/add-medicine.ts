@@ -49,8 +49,16 @@ export const makeAddMedicine =
     if (userReceipt.PatientId !== params.userId)
       throw new Error("Unauthorized!");
 
+    // Cek status resep
+    if (userReceipt.Status === "Confirmed")
+      throw new Error("Receipt has been checkout!");
+    if (userReceipt.Status === "Cancelled")
+      throw new Error("Receipt has been cancelled!");
+
     // Cek apakah obat sudah masuk ke dalam resep dokter
-    const medicineList = userReceipt.PrescriptionDetails.filter(rs => rs.ProductId == params.productId);
+    const medicineList = userReceipt.PrescriptionDetails.filter(
+      (rs) => rs.ProductId == params.productId
+    );
     if (medicineList.length > 0)
       throw new Error("Medicine has been registered in this receipt!");
 

@@ -40,6 +40,12 @@ export const makeUpdateMedicine =
     if (userReceipt.PatientId !== params.userId)
       throw new Error("Unauthorized");
 
+    // Cek status resep
+    if (userReceipt.Status === "Confirmed")
+      throw new Error("Receipt has been checkout!");
+    if (userReceipt.Status === "Cancelled")
+      throw new Error("Receipt has been cancelled!");
+
     // Cek apakah obat sudah terdaftar
     let selectedMedicine = userReceipt.PrescriptionDetails.filter(
       (rs) => rs.ProductId === params.productId

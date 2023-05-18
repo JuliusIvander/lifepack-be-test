@@ -63,7 +63,7 @@ export type PrescriptionData = Prescription & {
   Clinic: Clinic;
   PrescriptionDetails: (PrescriptionDetails & {
     Product: PharmacyProduct;
-})[];
+  })[];
 };
 
 // Function parameter
@@ -82,4 +82,12 @@ export type PrescriptionDetailsAddData = {
 export type PrescriptionDetailsUpdateData = {
   Quantity?: number;
   Price?: number;
+};
+
+export type PharmacyProductUpdateData = {
+  Name?: string;
+  Price?: number;
+  PriceConfigurationId?: number;
+  IsTaxIncluded?: boolean;
+  Stock?: number;
 };
