@@ -30,10 +30,10 @@ Run `npm start` for a dev server. Navigate to `http://localhost:5000/`.
 ### API list via POSTMAN
 https://documenter.getpostman.com/view/10484939/2s93kz65Dz
 
-### DB Stucture and explanation
+### DB Stucture
 DB Structure:
 ![Alt text](/assets/db.png)
-This is the explanation
+Explanation: [Here](https://docs.google.com/document/d/1dZiRJLnwXk9LJwMUXVjRUUxwk9us9biJQuAZEFwat5Y/edit?usp=sharing).
 
 
 
