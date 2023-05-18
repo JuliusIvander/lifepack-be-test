@@ -28,10 +28,11 @@ Run `npx prisma db seed` to generate dummy data for development
 Run `npm start` for a dev server. Navigate to `http://localhost:5000/`.
 
 ### API list via POSTMAN
-This is the api 
+https://documenter.getpostman.com/view/10484939/2s93kz65Dz
 
 ### DB Stucture and explanation
-This is the db structure
+DB Structure:
+![Alt text](/assets/db.png)
 This is the explanation
 
 
